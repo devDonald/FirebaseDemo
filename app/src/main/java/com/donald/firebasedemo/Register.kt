@@ -7,6 +7,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.kaopiz.kprogresshud.KProgressHUD
 import javax.xml.namespace.NamespaceContext
 
 class Register : AppCompatActivity() {
@@ -14,10 +21,21 @@ class Register : AppCompatActivity() {
     private lateinit var email:String
     private lateinit var phone:String
     private lateinit var password:String
+    private var mAuth: FirebaseAuth? = null
+    private var mDatabase:FirebaseDatabase? = null
+    private lateinit var hud: KProgressHUD
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+
+        mAuth = FirebaseAuth.getInstance()
+
+        mDatabase = FirebaseDatabase.getInstance()
+
+        val mUsers: DatabaseReference =mDatabase!!.reference!!.child("Users")
+
 
         val login: TextView = findViewById(R.id.tv_reg_login)
         val et_name:EditText =findViewById(R.id.et_reg_username)
@@ -25,6 +43,14 @@ class Register : AppCompatActivity() {
         val et_phone:EditText =findViewById(R.id.et_reg_phone)
         val et_password:EditText =findViewById(R.id.et_reg_password)
         val bt_register:Button = findViewById(R.id.bt_reg_submit)
+
+       hud= KProgressHUD.create(this)
+            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            .setLabel("Please wait")
+            .setDetailsLabel("Creating User")
+            .setCancellable(true)
+            .setAnimationSpeed(2)
+            .setDimAmount(0.5f)
 
 
         login.setOnClickListener(View.OnClickListener {
@@ -50,8 +76,22 @@ class Register : AppCompatActivity() {
                 et_password.setError("password empty")
             } else{
 
+                hud.show()
+
+                mAuth!!.createUserWithEmailAndPassword(email,password)
+
+                    .addOnCompleteListener(this){task ->
+
+                        if (task.isSuccessful){
+
+                            hud.dismiss()
+                        } else{
+
+                        }
+                    }
             }
 
         })
     }
+
 }

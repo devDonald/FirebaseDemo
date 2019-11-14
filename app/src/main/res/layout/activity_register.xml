@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/holo_orange_dark"
+    tools:context=".Register">
+
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="109dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/gla" />
+
+
+    <EditText
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_reg_username"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        android:textColorHint="@android:color/white"
+        android:imeOptions="actionNext"
+        />
+    <EditText
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_reg_phone"
+        android:hint="Phone No"
+        android:inputType="phone"
+        android:textColorHint="@android:color/white"
+        android:imeOptions="actionNext"
+        />
+    <EditText
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_reg_email"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:textColorHint="@android:color/white"
+        android:imeOptions="actionNext"
+        />
+    <EditText
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_reg_password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="@android:color/white"
+        android:imeOptions="actionDone"
+        />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:id="@+id/bt_reg_submit"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:imeOptions="actionGo"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+
+    <TextView
+        android:id="@+id/tv_reg_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already Registered? Click Here!"
+        android:textColor="@android:color/white"
+        android:textStyle="bold|italic"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+</LinearLayout>

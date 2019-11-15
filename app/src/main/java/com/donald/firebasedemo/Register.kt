@@ -90,6 +90,7 @@ class Register : AppCompatActivity() {
 
                         if (task.isSuccessful){
 
+                            //fetch the user id of the current User
                             val userId = mAuth!!.currentUser!!.uid
 
                             //update user profile information
@@ -97,6 +98,7 @@ class Register : AppCompatActivity() {
                             currentUserDb.child("names").setValue(names)
                             currentUserDb.child("phone").setValue(phone)
                             currentUserDb.child("email").setValue(email)
+                            currentUserDb.child("uid").setValue(userId)
 
                             updateUserInfoAndUI()
 

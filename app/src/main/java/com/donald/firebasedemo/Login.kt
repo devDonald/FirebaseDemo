@@ -7,11 +7,19 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.kaopiz.kprogresshud.KProgressHUD
 
 class Login : AppCompatActivity() {
 
     private lateinit var email:String
     private lateinit var password:String
+    private var mAuth: FirebaseAuth? = null
+
+    private lateinit var hud: KProgressHUD
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +30,16 @@ class Login : AppCompatActivity() {
         val et_password: EditText =findViewById(R.id.et_login_password)
         val bt_login:Button = findViewById(R.id.bt_login_submit)
 
+
+        mAuth = FirebaseAuth.getInstance()
+
+        hud= KProgressHUD.create(this)
+            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            .setLabel("Please wait")
+            .setDetailsLabel("Authenticating User")
+            .setCancellable(true)
+            .setAnimationSpeed(2)
+            .setDimAmount(0.5f)
 
         register.setOnClickListener(View.OnClickListener {
             val toRegister = Intent(this, Register::class.java)
@@ -40,8 +58,26 @@ class Login : AppCompatActivity() {
                 et_password.setError("password empty")
             } else{
 
+                hud.show()
+
+                mAuth!!.signInWithEmailAndPassword(email,password)
+                    .addOnCompleteListener (this){task ->
+                        hud.dismiss()
+                        if (task.isSuccessful){
+
+                            updateUI()
+                        } else{
+                            Toast.makeText(this, "Authentication failed.",Toast.LENGTH_LONG).show()
+                        }
+                    }
             }
         })
 
+    }
+
+    private fun updateUI() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 }

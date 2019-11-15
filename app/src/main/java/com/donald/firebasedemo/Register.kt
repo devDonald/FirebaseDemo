@@ -3,14 +3,17 @@ package com.donald.firebasedemo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.kaopiz.kprogresshud.KProgressHUD
@@ -80,18 +83,41 @@ class Register : AppCompatActivity() {
 
                 mAuth!!.createUserWithEmailAndPassword(email,password)
 
+
                     .addOnCompleteListener(this){task ->
+
+                        hud.dismiss()
 
                         if (task.isSuccessful){
 
-                            hud.dismiss()
+                            val userId = mAuth!!.currentUser!!.uid
+
+                            //update user profile information
+                            val currentUserDb = mUsers!!.child(userId)
+                            currentUserDb.child("names").setValue(names)
+                            currentUserDb.child("phone").setValue(phone)
+                            currentUserDb.child("email").setValue(email)
+
+                            updateUserInfoAndUI()
+
                         } else{
+
+                            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+
 
                         }
                     }
             }
 
         })
+    }
+
+
+    private fun updateUserInfoAndUI() {
+        //start next activity
+        val intent = Intent(this, Login::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 
 }

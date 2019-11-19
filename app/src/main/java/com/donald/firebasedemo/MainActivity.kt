@@ -29,6 +29,16 @@ class MainActivity : AppCompatActivity() {
             logout()
             true
         }
+        R.id.user_profile -> {
+            val toprofile = Intent(this, UserProfile::class.java)
+            startActivity(toprofile)
+            true
+        }
+        R.id.user_change_password -> {
+            val tochangepassword = Intent(this, ChangePassword::class.java)
+            startActivity(tochangepassword)
+            true
+        }
         else->{
             super.onOptionsItemSelected(item)
         }

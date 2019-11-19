@@ -6,4 +6,14 @@
         android:title="Logout"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/user_profile"
+        android:title="My Profile"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/user_change_password"
+        android:title="Change Password"
+        app:showAsAction="never"
+        />
 </menu>

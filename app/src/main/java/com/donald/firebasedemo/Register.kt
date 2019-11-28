@@ -95,10 +95,15 @@ class Register : AppCompatActivity() {
 
                             //update user profile information
                             val currentUserDb = mUsers!!.child(userId)
-                            currentUserDb.child("names").setValue(names)
-                            currentUserDb.child("phone").setValue(phone)
-                            currentUserDb.child("email").setValue(email)
-                            currentUserDb.child("uid").setValue(userId)
+
+                            val users: UserModel = UserModel(uid = userId,names = names,email = email,phone = phone)
+
+                            currentUserDb.setValue(users)
+
+//                            currentUserDb.child("names").setValue(names)
+//                            currentUserDb.child("phone").setValue(phone)
+//                            currentUserDb.child("email").setValue(email)
+//                            currentUserDb.child("uid").setValue(userId)
 
                             updateUserInfoAndUI()
 

@@ -33,6 +33,12 @@ class Login : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
+        val userId = mAuth!!.currentUser!!.uid
+
+        if (userId!==null){
+            updateUI()
+        }
+
         hud= KProgressHUD.create(this)
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setLabel("Please wait")
@@ -72,6 +78,7 @@ class Login : AppCompatActivity() {
                     }
             }
         })
+
 
     }
 
